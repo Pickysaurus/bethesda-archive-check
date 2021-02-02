@@ -203,12 +203,17 @@ function genTestResult(api: types.IExtensionApi,
         .map(g => g.gameName).join('/') || t('an unknown game');
 
       const plugin = a.plugin.name;
-      return `[*][b]${a.name}[/b] - ${t('Is loaded by {{plugin}}, but is intended for use in {{games}}.',
-        { replace: { plugin, games } })}`;
+      const errMsg = t('Is loaded by {{plugin}}, but is intended for use in {{games}}.',
+        { replace: { plugin, games } });
+      return `[*][b]${a.name}[/b] - ${errMsg}`;
     });
 
-    return `[h5]${t('Incompatible Archives')} ${modName ? `: ${modName}` : t('not managed by Vortex')}:[/h5]`
-    + `[list]${archiveErrors.join()}[/list]<br/><br/>`;
+    const groupInfo = modName
+      ? modName
+      : t('not managed by Vortex');
+
+    return `[h5]${t('Incompatible Archives')} ${groupInfo}:[/h5]`
+      + `[list]${archiveErrors.join()}[/list]<br/><br/>`;
   });
 
   return Bluebird.resolve({
