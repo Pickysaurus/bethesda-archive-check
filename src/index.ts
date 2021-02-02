@@ -148,7 +148,7 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
         }
 
         const plugin = plugins.find(p => p.name === archive.plugin);
-        const mod = plugin ? mods[plugin.modName] : undefined;
+        const mod = plugin ? mods[plugin.modId] : undefined;
         accum.push({
           name: archive.name,
           version,
@@ -207,7 +207,7 @@ function genTestResult(api: types.IExtensionApi,
         { replace: { plugin, games } })}`;
     });
 
-    return `[h3]${t('Incompatible Archives')} ${modName ? `: ${modName}` : t('not managed by Vortex')}[/h3]`
+    return `[h5]${t('Incompatible Archives')} ${modName ? `: ${modName}` : t('not managed by Vortex')}:[/h5]`
     + `[list]${archiveErrors.join()}[/list]<br/><br/>`;
   });
 
