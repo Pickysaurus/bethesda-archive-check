@@ -107,6 +107,7 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
     return noExt.normalize('NFC');
   };
 
+  const checkNotifId = 'checking-archives-all';
   try {
     const dataFiles = await fs.readdirAsync(dataFolder);
     const dataArchives = dataFiles.filter(f => ['.ba2', '.bsa'].includes(path.extname(f)));
@@ -129,7 +130,7 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
     // Updatable notification.
     const progress = (archiveName) => {
       api.store.dispatch(actions.addNotification({
-        id: `checking-archives-all`,
+        id: checkNotifId,
         progress: (pos * 100) / archivesToCheck.length,
         title: 'Checking archives',
         message: archiveName,
@@ -163,13 +164,14 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
       }
     }, Promise.resolve([]));
 
-    api.dismissNotification('checking-archives-all');
+    api.dismissNotification(checkNotifId);
 
     return (issues?.length > 0)
       ? genTestResult(api, issues, gameData)
       : Bluebird.resolve(undefined);
   } catch (err) {
-    log('error', 'Error checking for archive errors', err);
+    api.dismissNotification(checkNotifId);
+    api.showErrorNotification('Error checking for archive errors', err);
     return Bluebird.resolve(undefined);
   }
 }
