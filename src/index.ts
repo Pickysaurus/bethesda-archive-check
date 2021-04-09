@@ -30,6 +30,12 @@ const archiveData: IGameData[] = [
     type: 'BSA',
   },
   {
+    gameId: 'fallout3',
+    gameName: 'Fallout 3',
+    version: 104,
+    type: 'BSA',
+  },
+  {
     gameId: 'newvegas',
     gameName: 'Fallout New Vegas',
     version: 104,
