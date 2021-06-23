@@ -72,8 +72,8 @@ function main(context: types.IExtensionContext) {
   context.registerTest('incompatible-mod-archives', 'plugins-changed',
     (): Bluebird<types.ITestResult> => runTest(context));
 
-  context.registerTest('incompatible-mod-archives', 'loot-info-updated',
-    (): Bluebird<types.ITestResult> => runTest(context));
+  // context.registerTest('incompatible-mod-archives', 'loot-info-updated',
+  //   (): Bluebird<types.ITestResult> => runTest(context));
 
   return true;
 }
