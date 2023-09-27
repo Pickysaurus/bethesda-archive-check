@@ -59,6 +59,12 @@ const archiveData: IGameData[] = [
     version: 1,
     type: 'BA2',
   },
+  {
+    gameId: 'starfield',
+    gameName: 'Starfield',
+    version: 2,
+    type: 'BA2',
+  },
 ];
 
 function runTest(context: types.IExtensionContext) {
