@@ -8,61 +8,61 @@ const archiveData: IGameData[] = [
   {
     gameId: 'skyrim',
     gameName: 'Skyrim (2011)',
-    version: 104,
+    version: [104, 103],
     type: 'BSA',
   },
   {
     gameId: 'skyrimse',
     gameName: 'Skyrim Special Edition',
-    version: 105,
+    version: [105],
     type: 'BSA',
   },
   {
     gameId: 'skyrimvr',
     gameName: 'Skyrim VR',
-    version: 105,
+    version: [105],
     type: 'BSA',
   },
   {
     gameId: 'oblivion',
     gameName: 'Oblivion',
-    version: 103,
+    version: [103],
     type: 'BSA',
   },
   {
     gameId: 'fallout3',
     gameName: 'Fallout 3',
-    version: 104,
+    version: [104],
     type: 'BSA',
   },
   {
     gameId: 'newvegas',
     gameName: 'Fallout New Vegas',
-    version: 104,
+    version: [104],
     type: 'BSA',
   },
   {
     gameId: 'fallout4',
     gameName: 'Fallout 4',
-    version: 1,
+    version: [2, 1],
     type: 'BA2',
   },
   {
     gameId: 'fallout4vr',
     gameName: 'Fallout 4 VR',
-    version: 1,
+    version: [1],
     type: 'BA2',
   },
   {
     gameId: 'fallout76',
     gameName: 'Fallout 76',
-    version: 1,
+    version: [1],
     type: 'BA2',
   },
   {
     gameId: 'starfield',
     gameName: 'Starfield',
-    version: 2,
+    version: [2, 1],
     type: 'BA2',
   },
 ];
@@ -156,7 +156,7 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
       progress(archive.name);
       try {
         const version = await streamArchiveVersion(path.join(dataFolder, archive.name));
-        if (version === gameData.version) {
+        if (gameData.version.includes(version)) {
           return accum;
         }
 
@@ -165,7 +165,7 @@ async function checkForErrors(api: types.IExtensionApi, pluginsObj: any) {
         accum.push({
           name: archive.name,
           version,
-          validVersion: gameData.version,
+          validVersion: gameData.version.join('/'),
           plugin,
           mod,
         });
@@ -213,7 +213,7 @@ function genTestResult(api: types.IExtensionApi,
     }
     const archiveErrors = group.map(a => {
       const games = archiveData
-        .filter(g => g.version === a.version)
+        .filter(g => g.version.includes(a.version[0]))
         .map(g => g.gameName).join('/') || t('an unknown game');
 
       const plugin = a.plugin.name;
@@ -242,7 +242,7 @@ function genTestResult(api: types.IExtensionApi,
            + t('You can fix this problem yourself by removing any mods that are not intended to be used with {{thisGame}}. '
            + 'If you downloaded these mods from the correct game site at Nexus Mods, you should inform the mod author of this issue. '
            + 'Archives for this game must be {{ext}} files (v{{ver}}).',
-              { replace: { thisGame, ext: gameData.type, ver: gameData.version } }),
+              { replace: { thisGame, ext: gameData.type, ver: gameData.version.join('/') } }),
     },
     severity: 'error' as types.ProblemSeverity,
   });

@@ -16,6 +16,6 @@ export interface IIncompatibleArchive {
 export interface IGameData {
   gameId: string;
   gameName: string;
-  version: number;
+  version: number[];
   type: string;
 }
