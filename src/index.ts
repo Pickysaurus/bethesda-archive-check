@@ -44,7 +44,7 @@ const archiveData: IGameData[] = [
   {
     gameId: 'fallout4',
     gameName: 'Fallout 4',
-    version: [2, 1],
+    version: [8, 1],
     type: 'BA2',
   },
   {
@@ -227,7 +227,7 @@ function genTestResult(api: types.IExtensionApi,
       : t('not managed by Vortex');
 
     return `[h5]${t('Incompatible Archives')} ${groupInfo}:[/h5]`
-      + `[list]${archiveErrors.join()}[/list]<br/><br/>`;
+      + `[list]${archiveErrors.join('\n')}[/list]<br/><br/>`;
   });
 
   return Bluebird.resolve({
