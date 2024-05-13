@@ -44,7 +44,7 @@ const archiveData: IGameData[] = [
   {
     gameId: 'fallout4',
     gameName: 'Fallout 4',
-    version: [8, 1],
+    version: [8, 7, 1],
     type: 'BA2',
   },
   {
@@ -62,7 +62,7 @@ const archiveData: IGameData[] = [
   {
     gameId: 'starfield',
     gameName: 'Starfield',
-    version: [2, 1],
+    version: [3, 2, 1],
     type: 'BA2',
   },
 ];
